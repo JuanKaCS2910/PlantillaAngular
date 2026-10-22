@@ -1,0 +1,19 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '450px' }" header="Nueva Categoría" [modal]="true">
+    <ng-template #content>
+        <div class="flex flex-col gap-6">
+            <div>
+                <label for="nombre" class="block font-bold mb-3">Nombre</label>
+                <input type="text" pInputText id="nombre" [(ngModel)]="categoria.nombre" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !categoria.nombre">El nombre es obligatorio.</small>
+            </div>
+            <div class="flex items-center gap-2">
+                <p-checkbox [(ngModel)]="categoria.activo" [binary]="true" inputId="activo" />
+                <label for="activo">Activo</label>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #footer>
+        <p-button label="Cancelar" icon="pi pi-times" text (click)="hideDialog()" />
+        <p-button label="Guardar" icon="pi pi-check" (click)="saveCategoria()" />
+    </ng-template>
+</p-dialog>

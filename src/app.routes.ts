@@ -11,6 +11,11 @@ export const appRoutes: Routes = [
         component: AppLayout,
         children: [
             { path: '', component: Dashboard },
+            {
+                path: 'categorias',
+                loadComponent: () => import('./app/features/categorias/categoria-master/categoria-master.componet')
+                    .then((m) => m.CategoriaMasterComponet)
+            },
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
             { path: 'documentation', component: Documentation },
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
@@ -20,9 +25,8 @@ export const appRoutes: Routes = [
     { path: 'notfound', component: Notfound },
     { path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes') },
     {
-    path: 'login',
-    loadComponent: () =>
-      import('./app/core/auth/login/component/login.component').then((m) => m.LoginComponent),
+        path: 'login',
+        loadComponent: () => import('./app/core/auth/login/component/login.component').then((m) => m.LoginComponent)
     },
     { path: '**', redirectTo: '/notfound' }
 ];

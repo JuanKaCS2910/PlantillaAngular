@@ -1,0 +1,5 @@
+<label> Mantenimiento > Categoria</label>
+<hr>
+<app-categoria-botonera (nuevo)="dialogVisible = true"/>
+<app-categoria-list />
+<app-categoria-new [(visible)]="dialogVisible" (saved)="onSaved()"/>

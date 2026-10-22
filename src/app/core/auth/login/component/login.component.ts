@@ -13,14 +13,12 @@ import { LoginService } from '../services/login.service';
 import { NotificationService } from '@/app/shared/services/notification.service';
 
 @Component({
-  selector: 'app-login.component',
-  imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator,CommonModule,
-    ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+    selector: 'app-login.component',
+    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator, CommonModule, ReactiveFormsModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
     private loginService = inject(LoginService);
     private router = inject(Router);
     private notification = inject(NotificationService);
@@ -35,29 +33,40 @@ export class LoginComponent {
             password: this.password
         };
 
+        if (!this.email.trim()) {
+            this.notification.warn('Ingresa tu correo');
+            return;
+        }
+
+        if (!this.password) {
+            this.notification.warn('Ingresa tu contraseña');
+            return;
+        }
+
+        if (!this.email.trim() || !this.password) {
+            this.notification.warn('Ingresa tu correo y contraseña');
+            return;
+        }
+
         this.loginService.login(request).subscribe({
             next: (resp) => {
-                 if (resp.exito) {
+                if (resp.exito) {
                     console.log(resp);
-                    sessionStorage.setItem('access_token',resp.datos?.access_token)
-                    sessionStorage.setItem('refresh_token',resp.datos?.refresh_token)
+                    sessionStorage.setItem('access_token', resp.datos?.access_token);
+                    sessionStorage.setItem('refresh_token', resp.datos?.refresh_token);
                     this.notification.success(`Bienvenido ${resp.datos.usuario.nombre}`);
                     this.router.navigate(['/']);
-                }
-                else  {
+                } else {
                     this.notification.error(resp.mensaje);
                 }
-
-             },
+            },
             error: (err) => {
                 if (err.error.exito) {
-                    this.notification.error('No se pudo conectar con el servidor')
+                    this.notification.error('No se pudo conectar con el servidor');
+                } else {
+                    this.notification.error(err.error.mensaje);
                 }
-                else{
-this.notification.error(err.error.mensaje);
-                }
-                 }
+            }
         });
     }
-
 }
