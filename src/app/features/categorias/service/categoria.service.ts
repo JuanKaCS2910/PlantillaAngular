@@ -12,8 +12,8 @@ export class CategoriaService {
 
     private http = inject(HttpClient); // DI
 
-    getAll(): Observable<CategoriaResponse> {
-        return this.http.get<CategoriaResponse>(this.uri);
+    getAll(pagina = 1, tamanio = 1000): Observable<CategoriaResponse> {
+        return this.http.get<CategoriaResponse>(`${this.uri}?pagina=${pagina}&tamanio=${tamanio}`);
     }
 
     findById(id: number): Observable<Categoria> {
@@ -22,6 +22,10 @@ export class CategoriaService {
 
     save(category: CategoriaRequest): Observable<CategoriaResponse> {
         return this.http.post<CategoriaResponse>(this.uri, category);
+    }
+
+    update(id: number, req: CategoriaRequest): Observable<CategoriaResponse> {
+        return this.http.put<CategoriaResponse>(`${this.uri}/${id}`, req);
     }
 
     delete(id?: number): Observable<any> {

@@ -1,0 +1,5 @@
+<label> Mantenimiento > Marcas </label>
+<hr>
+<app-marca-botonera (nuevo)="onNuevo()" />
+<app-marca-list (editar)="onEditar($event)"/>
+<app-marca-new [(visible)]="dialogVisible" [editData]="MarcaSel" (saved)="onSaved()"/>

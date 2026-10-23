@@ -31,8 +31,8 @@ export class AppMenu {
                 label: 'Mantenimiento',
                 items: [
                     { label: 'Categorias', icon: 'pi pi-fw pi-tags', routerLink: ['/categorias'] },
-                    { label: 'Marcas', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
-                    { label: 'Productos', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
+                    { label: 'Marcas', icon: 'pi pi-fw pi-home', routerLink: ['/marcas'] },
+                    { label: 'Productos', icon: 'pi pi-fw pi-home', routerLink: ['/productos'] },
                 ]
             },
 

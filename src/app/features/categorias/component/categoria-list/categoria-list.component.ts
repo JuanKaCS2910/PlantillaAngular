@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -9,6 +9,7 @@ import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { CategoriaService } from '../../service/categoria.service';
 import { Categoria } from '../../model/categoria';
+import { NotificationService } from '@/app/shared/services/notification.service';
 
 interface Column {
     field: string;
@@ -18,25 +19,28 @@ interface Column {
 @Component({
   selector: 'app-categoria-list',
   imports: [TableModule, IconFieldModule, InputIconModule,
-            InputTextModule, RatingModule, TagModule, ButtonModule, CommonModule],
+            InputTextModule, RatingModule, TagModule, ButtonModule, CommonModule
+            ],
   templateUrl: './categoria-list.component.html',
   styleUrl: './categoria-list.component.scss',
 })
 
 export class CategoriaListComponent {
     private categoryService = inject(CategoriaService);
+    private notificationService = inject(NotificationService);
+
     public categorias = signal<Categoria[]>([]);
+    totalRecords = signal(0);
+    editar = output<Categoria>();
 
-    products = signal<any[]>([]);           // luego: signal<Categoria[]>
-
-    selectedProducts: any[] = [];           // luego: Categoria[]
+    selectedProducts: any[] = [];
 
     cols: Column[] = [
-        { field: 'code', header: 'Code' },
-        { field: 'name', header: 'Name' },
-        { field: 'category', header: 'Category' },
-        { field: 'rating', header: 'Reviews' },
-        { field: 'inventoryStatus', header: 'Status' }
+        { field: 'id', header: 'Id' },
+        { field: 'nombre', header: 'Nombre' },
+        { field: 'activo', header: 'Activo' },
+        { field: 'usuarioCreacion', header: 'Usuario Creación' },
+        { field: 'fechaCreacion', header: 'Fecha Creación' }
     ];
 
     onGlobalFilter(table: Table, event: Event) {
@@ -52,12 +56,10 @@ export class CategoriaListComponent {
             next: (res) => {
                 console.log(res);
                 this.categorias.set(res.datos.items);
-                // this.categories.set(res);
-                // this.startItem.set(0);
-                // this.endItem.set(this.itemsPerPage);
+                this.totalRecords.set(res.datos.totalRegistros);
             },
             error: (err) => {
-                //this.toastr.error('Error al listar las categorías', 'Error');
+                this.notificationService.error(err.mensaje);
             },
             complete() {}
         });
@@ -76,11 +78,9 @@ export class CategoriaListComponent {
         }
     }
 
-    editProduct(product: any) {
-        // luego: abrir diálogo de edición
-    }
+    editCategoria(c: Categoria) { this.editar.emit(c); }
 
-    deleteProduct(product: any) {
+    deleteCategoria(categorias: any) {
         // luego: confirmar y eliminar
     }
 

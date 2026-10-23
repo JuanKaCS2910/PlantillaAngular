@@ -1,18 +1,3 @@
-<!-- <p-table
-            #dt
-            [value]="products()"
-            [rows]="10"
-            [columns]="cols"
-            [paginator]="true"
-            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-            [tableStyle]="{ 'min-width': '75rem' }"
-            [(selection)]="selectedProducts"
-            [rowHover]="true"
-            dataKey="id"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
-            [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[10, 20, 30]"
-        > -->
 <p-table
             #dt
             [value]="categorias()"
@@ -23,8 +8,8 @@
             [tableStyle]="{ 'min-width': '75rem' }"
             [(selection)]="selectedProducts"
             [rowHover]="true"
-            dataKey="id"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+            dataKey="idCategoria"
+            currentPageReportTemplate="Mostrando {first} de {last} a {totalRecords} categorias"
             [showCurrentPageReport]="true"
             [rowsPerPageOptions]="[10, 20, 30]"
         >
@@ -68,45 +53,17 @@
                     <td>{{ categoria.idCategoria }}</td>
                     <td>{{ categoria.nombre }}</td>
                     <td>
-                        <p-tag [value]="categoria.activo ? 'Activo' : 'Inactivo'"
+                        <p-tag [value]="categoria.activo ? 'ACTIVO' : 'INACTIVO'"
                             [severity]="categoria.activo ? 'success' : 'danger'" />
                     </td>
                     <td>{{ categoria.usuarioCreacion }}</td>
                     <td>{{ categoria.fechaCreacion | date:'dd/MM/yyyy' }}</td>
                     <td>
-                        <!-- <p-button icon="pi pi-pencil" ... (click)="editProduct(categoria)" />
-                        <p-button icon="pi pi-trash" ... (click)="deleteProduct(categoria)" /> -->
-
-                        <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(categoria)" />
-                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(categoria)" />
-
+                        <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editCategoria(categoria)" />
+                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteCategoria(categoria)" />
                     </td>
                 </tr>
             </ng-template>
-            <!-- <ng-template #body let-product>
-                <tr>
-                    <td style="width: 3rem">
-                        <p-tableCheckbox [value]="product" />
-                    </td>
-                    <td style="min-width: 12rem">{{ product.code }}</td>
-                    <td style="min-width: 16rem">{{ product.name }}</td>
-                    <td>
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="width: 64px" class="rounded" />
-                    </td>
-                    <td>{{ product.price | currency: 'USD' }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>
-                        <p-rating [(ngModel)]="product.rating" [readonly]="true" />
-                    </td>
-                    <td>
-                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
-                    </td>
-                    <td>
-                        <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(product)" />
-                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
-                    </td>
-                </tr>
-            </ng-template> -->
 
             <ng-template #emptymessage>
                 <tr>

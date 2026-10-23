@@ -16,6 +16,16 @@ export const appRoutes: Routes = [
                 loadComponent: () => import('./app/features/categorias/categoria-master/categoria-master.componet')
                     .then((m) => m.CategoriaMasterComponet)
             },
+            {
+                path: 'marcas',
+                loadComponent: () => import('./app/features/marcas/marca-home/marca-home.component')
+                    .then((m) => m.MarcaHomeComponent)
+            },
+            {
+                path: 'productos',
+                loadComponent: () => import('./app/features/productos/producto-home/producto-home.component')
+                    .then((m) => m.ProductoHomeComponent)
+            },
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
             { path: 'documentation', component: Documentation },
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }

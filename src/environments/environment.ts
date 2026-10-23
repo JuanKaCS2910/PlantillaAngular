@@ -1,3 +1,3 @@
 export const environment = {
-  URL_BASE:'https://localhost:7150'
+  URL_BASE:'http://localhost:5074'
 };

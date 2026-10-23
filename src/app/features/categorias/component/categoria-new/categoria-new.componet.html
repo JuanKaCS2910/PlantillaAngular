@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="visible" [style]="{ width: '450px' }" header="Nueva Categoría" [modal]="true">
+<p-dialog [(visible)]="visible" [style]="{ width: '450px' }"  header="{{ esEdicion ? 'Editar' : 'Nueva' }} Categoría" [modal]="true">
     <ng-template #content>
         <div class="flex flex-col gap-6">
             <div>
