@@ -1,3 +1,6 @@
 <label> Mantenimiento > Producto </label>
 <hr>
 <app-producto-botonera (nuevo)="onNuevo()" />
+<app-producto-list (editar)="onEditar($event)"/>
+<app-producto-new [(visible)]="dialogVisible" [editData]="productoSel" (saved)="onSaved()"/>
+

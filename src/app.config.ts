@@ -4,7 +4,7 @@ import { provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScroll
 import Aura from '@primeuix/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 import { appRoutes } from './app.routes';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { authInterceptor } from './app/core/interceptor/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -16,6 +16,6 @@ export const appConfig: ApplicationConfig = {
         ),
         provideZonelessChangeDetection(),
         providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } }),
-        MessageService
+        MessageService,ConfirmationService
     ]
 };

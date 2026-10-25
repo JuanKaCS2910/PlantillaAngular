@@ -1,0 +1,89 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '450px' }"  header="{{ esEdicion ? 'Editar' : 'Nueva' }} Producto" [modal]="true">
+    <ng-template #content>
+        <div class="flex flex-col gap-6">
+
+            <div>
+                <label for="categoria" class="block font-bold mb-3">Categoría</label>
+                <p-select
+                    id="categoria"
+                    [(ngModel)]="producto.idCategoria"
+                    [options]="categorias()"
+                    optionLabel="nombre"
+                    optionValue="idCategoria"
+                    placeholder="Selecciona una categoría"
+                    fluid
+                />
+                <small class="text-red-500" *ngIf="submitted && !producto.idCategoria">
+                    La categoría es obligatoria.
+                </small>
+            </div>
+
+            <div>
+                <label for="marca" class="block font-bold mb-3">Marca</label>
+                <p-select
+                    id="marca"
+                    [(ngModel)]="producto.idMarca"
+                    [options]="marcas()"
+                    optionLabel="nombre"
+                    optionValue="idMarca"
+                    placeholder="Selecciona una marca"
+                    fluid
+                />
+                <small class="text-red-500" *ngIf="submitted && !producto.idMarca">
+                    La marca es obligatoria.
+                </small>
+            </div>
+
+            <div>
+                <label class="block font-bold mb-3">Imagen</label>
+                <p-fileupload
+                    mode="advanced"
+                    accept="image/*"
+                    [customUpload]="true"
+                    (onSelect)="onSelectImage($event)"
+                    chooseLabel="Buscar imagen"
+                    auto="true"
+                />
+
+            </div>
+            <!-- preview en vivo: con ngModel se actualiza mientras escribe -->
+                    <img *ngIf="imagenPreview || producto.imagenUrl"
+                        [src]="imagenPreview || producto.imagenUrl"
+                        class="block m-auto mt-3" style="max-height: 120px" />
+
+            <div>
+                <label for="nombre" class="block font-bold mb-3">Nombre Producto</label>
+                <input type="text" pInputText id="nombre" [(ngModel)]="producto.nombre" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !producto.nombre">El nombre es obligatorio.</small>
+            </div>
+
+            <div>
+                <label for="descripcion" class="block font-bold mb-3">Descripción Producto</label>
+                <input type="text" pInputText id="descripcion" [(ngModel)]="producto.descripcion" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !producto.descripcion">La descripción es obligatorio.</small>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <p-checkbox [(ngModel)]="producto.activo" [binary]="true" inputId="activo" />
+                <label for="activo">Activo</label>
+            </div>
+
+            <div>
+                <label for="precio" class="block font-bold mb-3">Precio</label>
+                <input type="text" pInputText id="precio" [(ngModel)]="producto.precio" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !producto.precio">El precio es obligatorio.</small>
+            </div>
+
+            <div>
+                <label for="stock" class="block font-bold mb-3">Stock</label>
+                <input type="text" pInputText id="stock" [(ngModel)]="producto.stock" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !producto.stock">El Stock es obligatorio.</small>
+            </div>
+
+        </div>
+    </ng-template>
+    <ng-template #footer>
+        <p-button label="Cancelar" icon="pi pi-times" text (click)="hideDialog()" />
+        <p-button label="Guardar" icon="pi pi-check" (click)="saveProducto()" />
+    </ng-template>
+</p-dialog>

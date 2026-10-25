@@ -31,11 +31,16 @@ export class AppMenu {
                 label: 'Mantenimiento',
                 items: [
                     { label: 'Categorias', icon: 'pi pi-fw pi-tags', routerLink: ['/categorias'] },
-                    { label: 'Marcas', icon: 'pi pi-fw pi-home', routerLink: ['/marcas'] },
-                    { label: 'Productos', icon: 'pi pi-fw pi-home', routerLink: ['/productos'] },
+                    { label: 'Marcas', icon: 'pi pi-fw pi-verified', routerLink: ['/marcas'] },
+                    { label: 'Productos', icon: 'pi pi-fw pi-box', routerLink: ['/productos'] },
                 ]
             },
-
+            {
+                label: 'Seguridad',
+                items: [
+                    { label: 'Usuario', icon: 'pi pi-fw pi-user', routerLink: ['/categorias'] }
+                ]
+            },
             {
                 label: 'UI Components',
                 items: [

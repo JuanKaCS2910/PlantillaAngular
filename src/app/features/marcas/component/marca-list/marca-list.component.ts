@@ -63,19 +63,6 @@ export class MarcaListComponent {
         });
     }
 
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-            default:
-                return 'info';
-        }
-    }
-
     editMarca(c: Marca) { this.editar.emit(c); }
 
     deleteMarca(categorias: any) {

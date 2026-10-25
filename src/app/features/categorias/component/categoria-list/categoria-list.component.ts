@@ -65,19 +65,6 @@ export class CategoriaListComponent {
         });
     }
 
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-            default:
-                return 'info';
-        }
-    }
-
     editCategoria(c: Categoria) { this.editar.emit(c); }
 
     deleteCategoria(categorias: any) {
