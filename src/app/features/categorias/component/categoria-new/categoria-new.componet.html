@@ -3,7 +3,8 @@
         <div class="flex flex-col gap-6">
             <div>
                 <label for="nombre" class="block font-bold mb-3">Nombre</label>
-                <input type="text" pInputText id="nombre" [(ngModel)]="categoria.nombre" required autofocus fluid />
+                <input type="text" pInputText id="nombre" [(ngModel)]="categoria.nombre" required #nombre="ngModel"
+                    [invalid]="!categoria.nombre?.trim() && (nombre.dirty || nombre.touched || submitted)" autofocus fluid />
                 <small class="text-red-500" *ngIf="submitted && !categoria.nombre">El nombre es obligatorio.</small>
             </div>
             <div class="flex items-center gap-2">

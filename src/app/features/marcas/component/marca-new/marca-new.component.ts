@@ -43,6 +43,7 @@ export class MarcaNewComponent {
 
     saveMarca() {
             this.submitted = true;
+            if (!this.marca.nombre?.trim()) return;
 
             const request: MarcaRequest = {
                 nombre: this.marca.nombre,

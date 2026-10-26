@@ -10,6 +10,8 @@ import { TagModule } from 'primeng/tag';
 import { Marca } from '../../model/marca';
 import { NotificationService } from '@/app/shared/services/notification.service';
 import { MarcaService } from '../../service/marca.service';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 interface Column {
     field: string;
@@ -19,13 +21,15 @@ interface Column {
 @Component({
   selector: 'app-marca-list',
   imports: [TableModule, IconFieldModule, InputIconModule,
-            InputTextModule, RatingModule, TagModule, ButtonModule, CommonModule],
+            InputTextModule, RatingModule, TagModule, ButtonModule,
+            CommonModule, ConfirmDialogModule],
   templateUrl: './marca-list.component.html',
   styleUrl: './marca-list.component.scss',
 })
 export class MarcaListComponent {
     private marcaService = inject(MarcaService);
     private notificationService = inject(NotificationService);
+    private confirmationService = inject(ConfirmationService);
 
     public marcas = signal<Marca[]>([]);
     totalRecords = signal(0);
@@ -63,10 +67,30 @@ export class MarcaListComponent {
         });
     }
 
-    editMarca(c: Marca) { this.editar.emit(c); }
+    editMarca(m: Marca) { this.editar.emit(m); }
 
-    deleteMarca(categorias: any) {
-        // luego: confirmar y eliminar
+    deleteMarca(m: Marca) {
+        this.confirmationService.confirm({
+                    message: `¿Estás seguro de eliminar marca: <b>${m.nombre}</b>?`,
+                    header: 'Confirmar eliminación',
+                    icon: 'pi pi-exclamation-triangle',
+                    acceptLabel: 'Sí',
+                    rejectLabel: 'No',
+                    acceptButtonStyleClass: 'p-button-danger',
+                    accept: () => {
+                        this.marcaService.delete(m.idMarca).subscribe({
+                            next: (resp) => {
+                                if (resp.exito) {
+                                    this.notificationService.success(resp.mensaje);
+                                    this.getAll();
+                                } else {
+                                    this.notificationService.error(resp.mensaje);
+                                }
+                            },
+                            error: () => this.notificationService.error('No se pudo eliminar la marca')
+                        });
+                    }
+                });
     }
 
 }

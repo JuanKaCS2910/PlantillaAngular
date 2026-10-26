@@ -1,0 +1,57 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '450px' }"  header="{{ esEdicion ? 'Editar' : 'Nueva' }} Usuario" [modal]="true">
+    <ng-template #content>
+        <div class="flex flex-col gap-6">
+            <div>
+                <label for="nombre" class="block font-bold mb-3">Nombre</label>
+                <input type="text" pInputText id="nombre"
+                   #nombre="ngModel"
+                   [(ngModel)]="usuario.nombre" required autofocus
+                   [invalid]="nombre.invalid && (nombre.touched || submitted)" fluid />
+                <small class="text-red-500" *ngIf="nombre.errors?.['required'] && (nombre.touched || submitted)">
+                    El nombre es obligatorio.
+                </small>
+            </div>
+
+            <div>
+                <label for="correo" class="block font-bold mb-3">Correo</label>
+                <input type="email" pInputText id="correo"
+                    #correo="ngModel"
+                    [(ngModel)]="usuario.correo" required email
+                    [invalid]="correo.invalid && (correo.touched || submitted)" fluid />
+                <small class="text-red-500" *ngIf="correo.errors?.['required'] && (correo.touched || submitted)">
+                    El correo es obligatorio.
+                </small>
+                <small class="text-red-500" *ngIf="correo.errors?.['email'] && (correo.touched || submitted)">
+                    Ingresa un correo válido (ejemplo: usuario@dominio.com).
+                </small>
+
+            </div>
+
+            <div>
+                <label for="passwordHash" class="block font-bold mb-3">Contraseña</label>
+                <p-password id="passwordHash" inputId="passwordHash"
+                    [(ngModel)]="usuario.passwordHash" required
+                    #passwordHash="ngModel"
+                    [toggleMask]="true"
+                    [feedback]="true"
+                    [invalid]="passwordHash.invalid && (passwordHash.touched || submitted)"
+                    fluid />
+                <small class="text-red-500" *ngIf="passwordHash.errors?.['required'] && (passwordHash.touched || submitted)">
+                    La contraseña es obligatoria.
+                </small>
+                <small class="text-red-500" *ngIf="passwordHash.errors?.['minlength'] && (passwordHash.touched || submitted)">
+                    Mínimo 8 caracteres.
+                </small>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <p-checkbox [(ngModel)]="usuario.activo" [binary]="true" inputId="activo" />
+                <label for="activo">Activo</label>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #footer>
+        <p-button label="Cancelar" icon="pi pi-times" text (click)="hideDialog()" />
+        <p-button label="Guardar" icon="pi pi-check" (click)="saveUsuario()" />
+    </ng-template>
+</p-dialog>

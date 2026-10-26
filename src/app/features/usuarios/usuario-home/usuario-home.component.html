@@ -1,0 +1,5 @@
+<label> Seguridad > Usuarios </label>
+<hr>
+<app-usuario-botonera  (nuevo)="onNuevo()" />
+<app-usuario-list (editar)="onEditar($event)"/>
+<app-usuario-new [(visible)]="dialogVisible" [editData]="UsuarioSel" (saved)="onSaved()"/>

@@ -43,6 +43,7 @@ export class CategoriaNewComponet {
 
     saveCategoria() {
         this.submitted = true;
+        if (!this.categoria.nombre?.trim()) return;
 
         const request: CategoriaRequest = {
             nombre: this.categoria.nombre,

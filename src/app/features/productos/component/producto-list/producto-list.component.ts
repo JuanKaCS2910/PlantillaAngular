@@ -78,7 +78,7 @@ export class ProductoListComponent {
     deleteProducto(p: Producto) {
 
         this.confirmationService.confirm({
-            message: `¿Estás seguro de eliminar <b>${p.nombre}</b>?`,
+            message: `¿Estás seguro de eliminar producto: <b>${p.nombre}</b>?`,
             header: 'Confirmar eliminación',
             icon: 'pi pi-exclamation-triangle',
             acceptLabel: 'Sí',

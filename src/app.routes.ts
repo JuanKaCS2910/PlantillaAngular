@@ -26,6 +26,11 @@ export const appRoutes: Routes = [
                 loadComponent: () => import('./app/features/productos/producto-home/producto-home.component')
                     .then((m) => m.ProductoHomeComponent)
             },
+            {
+                path: 'usuarios',
+                loadComponent: () => import('./app/features/usuarios/usuario-home/usuario-home.component')
+                    .then((m) => m.UsuarioHomeComponent)
+            },
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
             { path: 'documentation', component: Documentation },
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }

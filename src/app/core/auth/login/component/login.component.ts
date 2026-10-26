@@ -25,13 +25,13 @@ export class LoginComponent {
     private notification = inject(NotificationService);
 
     email: string = '';
-    password: string = '';
+    passwordHash: string = '';
     checked: boolean = false;
 
     onLogin() {
         const request: LoginRequest = {
             correo: this.email,
-            password: this.password
+            passwordHash: this.passwordHash
         };
 
         if (!this.email.trim()) {
@@ -39,12 +39,12 @@ export class LoginComponent {
             return;
         }
 
-        if (!this.password) {
+        if (!this.passwordHash) {
             this.notification.warn('Ingresa tu contraseña');
             return;
         }
 
-        if (!this.email.trim() || !this.password) {
+        if (!this.email.trim() || !this.passwordHash) {
             this.notification.warn('Ingresa tu correo y contraseña');
             return;
         }
