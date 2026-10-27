@@ -1,15 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '@/app/layout/service/layout.service';
+import { MenuModule } from 'primeng/menu';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
+    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator, MenuModule],
     template: ` <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
             <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
@@ -72,10 +73,11 @@ import { LayoutService } from '@/app/layout/service/layout.service';
                         <i class="pi pi-inbox"></i>
                         <span>Messages</span>
                     </button>
-                    <button type="button" class="layout-topbar-action">
+                    <button type="button" class="layout-topbar-action" (click)="userMenu.toggle($event)">
                         <i class="pi pi-user"></i>
                         <span>Profile</span>
                     </button>
+                    <p-menu #userMenu [model]="menuItems" [popup]="true" />
                 </div>
             </div>
         </div>
@@ -83,8 +85,22 @@ import { LayoutService } from '@/app/layout/service/layout.service';
 })
 export class AppTopbar {
     items!: MenuItem[];
+    private router = inject(Router);
 
     layoutService = inject(LayoutService);
+    menuItems: MenuItem[] = [
+        {
+            label: 'Cerrar sesión',
+            icon: 'pi pi-sign-out',
+            command: () => this.logout()
+        }
+    ];
+
+    logout() {
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('refresh_token');
+        this.router.navigate(['/login']);
+    }
 
     toggleDarkMode() {
         this.layoutService.layoutConfig.update((state) => ({

@@ -1,4 +1,8 @@
-import { Injectable, effect, signal, computed } from '@angular/core';
+import { environment } from '@/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, effect, signal, computed, inject } from '@angular/core';
+import { DashboardResponse } from '../../pages/dashboard/model/layout';
+import { Observable } from 'rxjs';
 
 export interface LayoutConfig {
     preset: string;
@@ -21,6 +25,8 @@ interface LayoutState {
     providedIn: 'root'
 })
 export class LayoutService {
+
+
     layoutConfig = signal<LayoutConfig>({
         preset: 'Aura',
         primary: 'emerald',
