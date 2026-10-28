@@ -22,7 +22,7 @@ export class MarcaHomeComponent {
     }
 
     onSaved() {
-        this.list()?.getAll();   // reusa el método que ya tienes
+        this.list()?.getAll();
     }
 
     onEditar(c: Marca) {

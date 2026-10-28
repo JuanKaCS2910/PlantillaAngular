@@ -10,14 +10,14 @@ import { ToolbarModule } from 'primeng/toolbar';
 })
 export class UsuarioBotoneraComponent {
     nuevo = output<void>();
-    selectedMarca: any[] = [];   // tipa esto cuando tengas tu modelo Categoria
+    selectedMarca: any[] = [];
 
-    openNew() { /* abrir diálogo de nueva categoría */
-        console.log('1. click en Nuevo');   // ← ¿se imprime al hacer click?
+    openNew() {
+        console.log('1. click en Nuevo');
         this.nuevo.emit();
     }
 
-    deleteSelectedUsuario() { /* eliminar seleccionados */ }
+    deleteSelectedUsuario() {  }
 
-    exportCSV() { /* exportar tabla */ }
+    exportCSV() {  }
 }

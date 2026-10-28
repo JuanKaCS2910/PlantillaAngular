@@ -29,7 +29,7 @@ export class UsuarioNewComponent {
     private notification = inject(NotificationService);
 
     constructor() {
-        effect(() => {                                 // corre cuando editData cambia
+        effect(() => {
             const d = this.editData();
             this.usuario = d
                 ? { idUsuario: d.idUsuario, correo:d.correo, passwordHash: d.passwordHash, nombre: d.nombre, activo: d.activo }
@@ -38,7 +38,7 @@ export class UsuarioNewComponent {
     }
 
     hideDialog() {
-        this.visible.set(false);   // cerrar también avisa al padre
+        this.visible.set(false);
         this.submitted = false;
     }
 
@@ -49,12 +49,12 @@ export class UsuarioNewComponent {
 
                 const request: UsuarioRequest = {
                     nombre: this.usuario.nombre,
-                    correo: this.usuario.correo,        // ← falta enviarlo
+                    correo: this.usuario.correo,
                     passwordHash: this.usuario.passwordHash,
                     activo: this.usuario.activo ?? true
                 };
 
-                const op$ = this.esEdicion                                    // ← aquí se decide
+                const op$ = this.esEdicion
                 ? this.usuarioService.update(this.usuario.idUsuario!, request)
                 : this.usuarioService.save(request);
 

@@ -10,15 +10,14 @@ import { ToolbarModule } from 'primeng/toolbar';
 })
 export class ProductoBotoneraComponent {
     nuevo = output<void>();
-    selectedProducts: any[] = [];   // tipa esto cuando tengas tu modelo Categoria
+    selectedProducts: any[] = [];
 
-    openNew() { /* abrir diálogo de nueva categoría */
-        //this.nuevo.emit();
-        console.log('1. click en Nuevo');   // ← ¿se imprime al hacer click?
+    openNew() {
+        console.log('1. click en Nuevo');
         this.nuevo.emit();
     }
 
-    deleteSelectedProducts() { /* eliminar seleccionados */ }
+    deleteSelectedProducts() {  }
 
-    exportCSV() { /* exportar tabla */ }
+    exportCSV() {  }
 }

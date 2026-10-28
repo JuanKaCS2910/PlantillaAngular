@@ -23,7 +23,7 @@ export class ProductoHomeComponent {
     }
 
     onSaved() {
-        this.list()?.getAll();   // reusa el método que ya tienes
+        this.list()?.getAll();
     }
 
     onEditar(c: Producto) {

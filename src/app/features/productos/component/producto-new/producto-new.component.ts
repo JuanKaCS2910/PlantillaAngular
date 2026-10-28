@@ -38,7 +38,7 @@ export class ProductoNewComponent {
     selectedFile: File | null = null;
     imagenPreview: string | null = null;
 
-    ngOnInit() {                                   // o en el constructor
+    ngOnInit() {
         this.categoriaService.getAll().subscribe({
             next: (res) => this.categorias.set(res.datos.items)
         });
@@ -48,7 +48,7 @@ export class ProductoNewComponent {
     }
 
     constructor() {
-        effect(() => {                                 // corre cuando editData cambia
+        effect(() => {
             const d = this.editData();
             this.producto = d
                 ? { idProducto:d.idProducto, idCategoria: d.idCategoria, idMarca: d.idMarca, nombre: d.nombre,
@@ -56,12 +56,12 @@ export class ProductoNewComponent {
                     stock: d.stock, imagenUrl: d.imagenUrl }
                 : { idProducto:0, idCategoria: 0, idMarca:0, nombre: '', activo: true, descripcion:'',
                     precio:0, stock: 0, imagenUrl:''
-                 };         // reset para "nuevo"
+                 };
         });
     }
 
     hideDialog() {
-        this.visible.set(false);   // cerrar también avisa al padre
+        this.visible.set(false);
         this.submitted = false;
         this.selectedFile = null;
         this.imagenPreview = null;
@@ -70,10 +70,9 @@ export class ProductoNewComponent {
     onSelectImage(event: FileSelectEvent) {
         const file = event.files[0];
         this.selectedFile = file;
-        //this.imagenPreview = URL.createObjectURL(file);   // URL temporal local
         const reader = new FileReader();
         reader.onload = () => {
-            this.producto.imagenUrl = reader.result as string;   // data:image/png;base64,iVBOR...
+            this.producto.imagenUrl = reader.result as string;
             this.imagenPreview = reader.result as string;
         };
         reader.readAsDataURL(file);

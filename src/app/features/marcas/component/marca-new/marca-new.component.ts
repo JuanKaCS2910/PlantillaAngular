@@ -28,16 +28,16 @@ export class MarcaNewComponent {
     private notification = inject(NotificationService);
 
     constructor() {
-        effect(() => {                                 // corre cuando editData cambia
+        effect(() => {
             const d = this.editData();
             this.marca = d
                 ? { idMarca: d.idMarca, nombre: d.nombre, activo: d.activo }
-                : { nombre: '', activo: true };         // reset para "nuevo"
+                : { nombre: '', activo: true };
         });
     }
 
     hideDialog() {
-        this.visible.set(false);   // cerrar también avisa al padre
+        this.visible.set(false);
         this.submitted = false;
     }
 
@@ -50,7 +50,7 @@ export class MarcaNewComponent {
                 activo: this.marca.activo ?? true
             };
 
-            const op$ = this.esEdicion                                    // ← aquí se decide
+            const op$ = this.esEdicion
             ? this.categoriaService.update(this.marca.idMarca!, request)
             : this.categoriaService.save(request);
 
